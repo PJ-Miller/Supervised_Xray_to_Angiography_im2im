@@ -1,0 +1,165 @@
+---
+version: 1
+
+kind: experiment
+
+framework: pytorch
+
+tags: [weightDecay0.0, Resize, 250epc, L1, 384x384, Dongyang_dataset, version_2, batch_8, base_mask, val, model_1, 5perc]  #Generalized  # base_ae # 768 #proto_4_Y # Dongyang_dataset # D6_data_v1
+  # to be done for base_ae ,,,Focal on D1_data_version_3
+build:
+  # image: pytorch/pytorch:1.7.0-cuda11.0-cudnn8-runtime
+  # image: pytorch/pytorch:1.12.1-cuda11.3-cudnn8-runtime
+  image: pytorch/pytorch:1.11.0-cuda11.3-cudnn8-runtime
+  build_steps:
+    - pip install -r requirements.txt
+    # - RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
+  env_vars:
+    - ['TORCH_HOME', "/data1/brainlab_project/vessel/inpainting/"]
+
+environment:
+  resources:
+    cpu:
+      requests: 8
+      limits: 12
+    memory:
+      requests: 32000
+      limits: 64000
+    gpu:
+      requests: 1
+      limits: 1
+
+declarations:
+  saving_name: "base_reg001_version2"
+  checkpoint_interval: 10
+  finetune_path_encoder:  "" #"/brainlab_project/vessel/inpainting/pretrained_models/109233_enc_50.pth" # 109233_enc_50.pth #/brainlab_project/vessel/inpainting/pretrained_models/version_1/Model_version_proto4_model_1_v1__Enc_without__Focal_L2_epoch70_batchsize2.pth # "/brainlab_project/vessel/inpainting/pretrained_models/version_1/Model_version_prototype_1__Enc_without__L2_L2_epoch70_batchsize12.pth"
+  finetune_path_decoder:  "" # "/brainlab_project/vessel/inpainting/pretrained_models/109233_dec_50.pth"  # 109233_dec_50.pth # /brainlab_project/vessel/inpainting/pretrained_models/version_1/Model_version_proto4_model_1_v1__Dec_without__Focal_L2_epoch70_batchsize2.pth # "/brainlab_project/vessel/inpainting/pretrained_models/version_1/Model_version_prototype_1__Dec_without__L2_L2_epoch70_batchsize12.pth"
+  finetune_path_autoencoder: "" #  "/brainlab_project/vessel/inpainting/pretrained_models/109232_base_50.pth" # "/brainlab_project/vessel/inpainting/pretrained_models/109233_ae_50.pth" # 109233_ae_50.pth # /brainlab_project/vessel/inpainting/pretrained_models/version_1/Model_version_proto4_model_1_v1__AE_with__Focal_L2_epoch70_batchsize2.pth # "/brainlab_project/vessel/inpainting/pretrained_models/version_1/Model_version_prototype_1__AE_with__L2_L2_epoch70_batchsize12.pth"
+  finetune_path_bottleneck:  "" #"/brainlab_project/vessel/inpainting/pretrained_models/109474_bot_250.pth" # 109233_bot_50.pth #"/brainlab_project/vessel/inpainting/pretrained_models/version_1/Model_version_prototype_1__bottleneck__L2_L2_epoch70_batchsize12.pth"
+  finetune_path: ""
+  save_path: ""
+  sample_path: ""
+  log_path: ""
+  epochs: 250
+  batch_size: 8
+  lr_g: 0.0002
+  lr_decrease_epoch: 25
+  lr_decrease_factor: 0.5
+  num_workers: 0
+  checkpoint_image: 10
+  latent_channels: 64
+  latent_multi: 4 
+  # baseroot: /brainlab_project/vessel/inpainting/D3_data_v1/train/without/
+  # baseroot_pair: /brainlab_project/vessel/inpainting/D3_data_v1/train/with/
+  # test_base: /brainlab_project/vessel/inpainting/D3_data_v1/test/without/
+  # test_base_pair: /brainlab_project/vessel/inpainting/D3_data_v1/test/with/
+  baseroot: "/brainlab_project/vessel/inpainting/Dongyang_dataset/version_2/train/without/"
+  baseroot_pair: "/brainlab_project/vessel/inpainting/Dongyang_dataset/version_2/train/with/"
+  test_base: "/brainlab_project/vessel/inpainting/Dongyang_dataset/version_2/test/without/"
+  test_base_pair: "/brainlab_project/vessel/inpainting/Dongyang_dataset/version_2/test/with/"
+  # baseroot:       "/brainlab_project/vessel/inpainting/D1_data_version_5/version_1/train/without/" # "/brainlab_project/vessel/inpainting/D1_data/train/withoutVessel/version1_or/ "  # # "/brainlab_project/vessel/inpainting/KiTS_dataset/version_1/train/without/" # 
+  # baseroot_pair:  "/brainlab_project/vessel/inpainting/D1_data_version_5/version_1/train/with/" # "/brainlab_project/vessel/inpainting/D1_data/train/withVessel/version1_or/"  # #  "/brainlab_project/vessel/inpainting/KiTS_dataset/version_1/train/with/" # 
+  # test_base:      "/brainlab_project/vessel/inpainting/D1_data_version_5/version_1/test/without/" # "/brainlab_project/vessel/inpainting/D1_data/test/withoutVessel/version1_or/" # # "/brainlab_project/vessel/inpainting/KiTS_dataset/version_1/test/without/"  #
+  # test_base_pair: "/brainlab_project/vessel/inpainting/D1_data_version_5/version_1/test/with/" # "/brainlab_project/vessel/inpainting/D1_data/test/withVessel/version1_or/" # #  "/brainlab_project/vessel/inpainting/KiTS_dataset/version_1/test/with/" #
+  # baseroot:        "/brainlab_project/vessel/inpainting/D1_data/train/withoutVessel/version1_or/ "  # # "/brainlab_project/vessel/inpainting/KiTS_dataset/version_1/train/without/" # 
+  # baseroot_pair:  "/brainlab_project/vessel/inpainting/D1_data/train/withVessel/version1_or/"  # #  "/brainlab_project/vessel/inpainting/KiTS_dataset/version_1/train/with/" # 
+  # test_base:       "/brainlab_project/vessel/inpainting/D1_data/test/withoutVessel/version1_or/" # # "/brainlab_project/vessel/inpainting/KiTS_dataset/version_1/test/without/"  #
+  # test_base_pair: "/brainlab_project/vessel/inpainting/D1_data/test/withVessel/version1_or/" # #  "/brainlab_project/vessel/inpainting/KiTS_dataset/version_1/test/with/" #
+  # baseroot:      "/brainlab_project/vessel/inpainting/chest_xray_external/NIH/"   # "/brainlab_project/vessel/inpainting/chest_xray_external/NIH/" #
+  # baseroot_pair:   "/brainlab_project/vessel/inpainting/chest_xray_external/NIH/"  # "/brainlab_project/vessel/inpainting/chest_xray_external/NORMAL/" #
+  # test_base:     "/brainlab_project/vessel/inpainting/chest_xray_external/NIH/" # "/brainlab_project/vessel/inpainting/chest_xray_external/NIH/" #
+  # test_base_pair:  "/brainlab_project/vessel/inpainting/chest_xray_external/NIH/" #  "/brainlab_project/vessel/inpainting/chest_xray_external/NIH/" # 
+  imgsize: 384
+  mask_type: "free_form"  
+  margin: 10
+  mask_num: 14 # case5 14
+  bbox_shape: 30
+  max_angle: 10
+  max_len: 50
+  max_width: 15
+  contrast: 1
+  model: 1
+  loss_function: "L1"
+  gan_loss_function: "L2"
+  log_interval: 5
+  weight_decay:  0.001
+ # train_basic_autoencoder  # train_prototype_4 # train_prototype_3 # train_prototype_5 # train_prototype_4Y_opt.py
+ # run_validation_base_ae # train_prototype_4Y_pix2pix # train_basic_pix2pix # run_validation_prototype_4Y
+
+run:
+  cmd: python -u train_basic_autoencoder.py  --saving_name={{ saving_name }} \
+                         --checkpoint_interval={{ checkpoint_interval }} \
+                         --finetune_path_encoder={{ finetune_path_encoder }} \
+                         --finetune_path_decoder={{ finetune_path_decoder }} \
+                         --finetune_path_autoencoder={{ finetune_path_autoencoder }} \
+                         --finetune_path_bottleneck={{ finetune_path_bottleneck }} \
+                         --finetune_path={{ finetune_path }} \
+                         --save_path={{ save_path }} \
+                         --sample_path={{ sample_path }} \
+                         --log_path={{ log_path }} \
+                         --epochs={{ epochs }} \
+                         --batch_size={{ batch_size }} \
+                         --lr_g={{ lr_g }} \
+                         --lr_decrease_epoch={{ lr_decrease_epoch }} \
+                         --lr_decrease_factor={{ lr_decrease_factor }} \
+                         --num_workers={{ num_workers }} \
+                         --checkpoint_image={{ checkpoint_image }} \
+                         --latent_channels={{ latent_channels }} \
+                         --latent_multi={{ latent_multi }} \
+                         --baseroot={{ baseroot }} \
+                         --baseroot_pair={{ baseroot_pair }} \
+                         --imgsize={{ imgsize }} \
+                         --mask_type={{ mask_type }} \
+                         --margin={{ margin }} \
+                         --mask_num={{ mask_num }} \
+                         --bbox_shape={{ bbox_shape }} \
+                         --max_angle={{ max_angle }} \
+                         --max_len={{ max_len }} \
+                         --max_width={{ max_width }} \
+                         --contrast={{ contrast }} \
+                         --model={{ model }} \
+                         --loss_function={{ loss_function }} \
+                         --gan_loss_function={{ gan_loss_function }} \
+                         --log_interval={{ log_interval }} \
+                         --weight_decay={{ weight_decay }} \
+                         --test_base={{ test_base }} \
+                         --test_base_pair={{ test_base_pair }}
+
+
+
+# declarations:
+#   saving_name: "prototype_1"
+#   checkpoint_interval: 50
+#   finetune_path_encoder: ""
+#   finetune_path_decoder: ""
+#   finetune_path_autoencoder: ""
+#   finetune_path_bottleneck: ""
+#   finetune_path: ""
+#   save_path: ""
+#   sample_path: ""
+#   log_path: ""
+#   epochs: 50
+#   batch_size: 4
+#   lr_g: 0.0002
+#   lr_decrease_epoch: 50
+#   lr_decrease_factor: 0.5
+#   num_workers: 0
+#   checkpoint_image: 5
+#   latent_channels: 64
+#   latent_multi: 4
+#   baseroot: "/brainlab_project/vessel/inpainting/D1_train/withoutVessel/version1_or/"
+#   baseroot_pair: "/brainlab_project/vessel/inpainting/D1_train/withVessel/version1_or/"
+#   imgsize: 512
+#   mask_type: "free_form"
+#   margin: 10
+#   mask_num: 40
+#   bbox_shape: 30
+#   max_angle: 10
+#   max_len: 100
+#   max_width: 20
+#   contrast: 1
+#   model: 0
+#   loss_function: "L1"
+#   gan_loss_function: "L2"
+#   log_interval: 20
+
