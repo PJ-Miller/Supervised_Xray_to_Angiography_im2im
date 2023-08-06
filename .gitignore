@@ -1,0 +1,24 @@
+__pycache__/
+
+
+
+
+# logs
+log/*
+
+models/*
+
+pretrained_models/*
+
+data/*
+
+samples/*
+
+
+train_prototype_1 copy.py
+train_prototype_1.py
+train_prototype_2.py
+train_prototype_3.py
+train_prototype_5.py
+
+run_validation_prototype_1.py
