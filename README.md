@@ -16,6 +16,7 @@ depending on which model to train
 
 - choose model to train models : 
         options:
+        
             train_prototype_4 : pretraining of autoencoder -> train of bottleneck --> loss function evaluation between pretraining ae output and model output
             train_prototype_4Y : pretraining of autoencoder -> train of bottleneck --> loss function evaluation between ground truth and model output
             train_prototype 4Y_opt : a bit optimized performance 
