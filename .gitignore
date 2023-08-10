@@ -3,23 +3,21 @@ __pycache__/
 
 
 
-# logs
+# empty folders
 log/*
-
 models/*
-
 pretrained_models/*
-
 data/*
-
 samples/*
 
+# keep the gitkeeps
 !*/.gitkeep
 
-./train_prototype_1 copy.py
+# older models, and tests, and copies
+./train_prototype_1_copy
+./train_prototype_3_copy
 ./train_prototype_1.py
 ./train_prototype_2.py
 ./train_prototype_3.py
 ./train_prototype_5.py
-
-run_validation_prototype_1.py
+./run_validation_prototype_1.py
