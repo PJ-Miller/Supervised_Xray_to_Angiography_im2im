@@ -14,10 +14,12 @@ samples/*
 !*/.gitkeep
 
 # older models, and tests, and copies
-./train_prototype_1_copy
-./train_prototype_3_copy
-./train_prototype_1.py
-./train_prototype_2.py
-./train_prototype_3.py
-./train_prototype_5.py
-./run_validation_prototype_1.py
+/train_prototype_1_copy.py
+/train_prototype_3_copy.py
+/train_prototype_1.py
+/train_prototype_2.py
+/train_prototype_3.py
+/train_prototype_5.py
+/run_validation_prototype_1.py
+/run_validation_base_ae.py
+/run_validation_prototype_4Y.py
