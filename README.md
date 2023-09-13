@@ -2,11 +2,12 @@
 Repo of different models and frameworks that make use image-to-image translation in order to recreate angiographic images from X-rays.
 
 
-# overall
+# Overall
 
 this was implemented to run on the polyaxon cluster.
 
 needs: polyaxon installed
+to-do: change it for local running
 
 
 change the hyperparameters in polyaxonfile.yaml 
@@ -19,11 +20,14 @@ run in console:
 changes of hyperparameters happen in the yaml file: 
 
 
-# requirements
+# Data
+In order to run there is a need for paired data. This data can be created by repo: [paired Angio-X-ray](https://github.com/PJ-Miller/Angio-Xray_paired_data_DeepDRR).
+
+# Requirements
 in requirements.txt
 
 
-# description
+# Description
 depending on which model to train in yaml file
 
 - choose model to train models : 
